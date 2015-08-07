@@ -26,7 +26,7 @@ my %rewardOpp = (
 		);
 
 # titFORtat, coOp, defect, random, tranquilizer, allowDefect/Coop
-my @teams = ('titFORtat','coOp','defect','random','tranquilizer','twoDefect','twoCoop');
+my @teams = qw (titFORtat coOp defect random tranquilizer twoDefect twoCoop);
 my $turn = 0;
 my $trials = 200;
 my $tranqThresh = .4;
@@ -34,8 +34,8 @@ my ($choice1,$choice2,$choice1a,$choice2a);
 my ($result,$turn1d,$turn2d,$turn1c,$turn2c);
 my ($score1,$score2,$scoreTot) = (0,0,0);
 my ($player1, $player2);
-open my $out, '>', 'score.txt';
-open my $data, '>', 'data.txt';
+open my $out, '>', 'score.txt' or die $!;
+open my $data, '>', 'data.txt' or die $!;
 
 foreach my $player1 (@teams) {
   foreach my $player2 (@teams) {
@@ -59,12 +59,13 @@ foreach my $player1 (@teams) {
   $scoreTot = 0;
 }
 
-print 'Trial results in data.txt, Final results in score.txt\n';
-
+print "Trial results in data.txt, Final results in score.txt\n";
+close $out or die $!;
+close $data or die $!;
 
 sub titFORtat
   {
-    $result = shift @_;
+    $result = shift;
     if ($turn == 1) {
       $result = 'C';
     }
@@ -109,7 +110,7 @@ sub tranquilizer
 
 sub twoDefect
   {
-    $turn1d = shift @_;
+    $turn1d = shift;
     if ($turn < 3) {
       $result = 'C';
     } elsif (($turn1d eq $turn2d) and ($turn1d eq 'D')) {
@@ -123,7 +124,7 @@ sub twoDefect
 
 sub twoCoop
   {
-    $turn1c = shift @_;
+    $turn1c = shift;
     if ($turn < 3) {
       $result = 'D';
     } elsif (($turn1c eq $turn2c) and ($turn1c eq 'C')) {
