@@ -44,7 +44,7 @@ print "\nScore:\t$titScore\t$oppScore\t$diff\n";
 
 sub titFORtat
   {
-    my $result = shift(@_);
+    my $result = shift;
     if ($turn == 1) {
       $result = 'C';
     }
